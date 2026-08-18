@@ -130,12 +130,6 @@ namespace PetCuttieGames.Rhythm
 
         private void Update()
         {
-            // Teste global de input
-            if (Input.anyKeyDown)
-            {
-                Debug.Log($"Tecla pressionada: {Input.inputString}");
-            }
-
             // Atalho para iniciar no editor/teclado
             if (!hasStarted && Input.GetKeyDown(KeyCode.Space))
             {

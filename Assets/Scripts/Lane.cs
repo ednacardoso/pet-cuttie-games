@@ -35,14 +35,7 @@ namespace PetCuttieGames.Rhythm
         {
             // Suporte a teclado (para testes no editor/web)
             // e touch (para mobile)
-            bool keyPressed = Input.GetKeyDown(keyboardKey);
-            bool touched = WasTouched();
-            bool pressed = keyPressed || touched;
-
-            if (keyPressed)
-            {
-                Debug.Log($"Lane {laneIndex}: tecla {keyboardKey} pressionada. Nota atual: {(currentNote != null ? "SIM" : "NAO")}");
-            }
+            bool pressed = Input.GetKeyDown(keyboardKey) || WasTouched();
 
             if (pressed)
             {
@@ -85,14 +78,11 @@ namespace PetCuttieGames.Rhythm
         {
             if (currentNote == null)
             {
-                Debug.Log($"Lane {laneIndex}: tecla pressionada, mas sem nota proxima.");
                 return;
             }
 
             float hitY = hitZone != null ? hitZone.position.y : transform.position.y;
             float distance = Mathf.Abs(currentNote.transform.position.y - hitY);
-
-            Debug.Log($"Lane {laneIndex}: tentando acerto. Distancia: {distance:F3}, limite: {goodThreshold:F3}");
 
             if (distance <= goodThreshold)
             {
@@ -103,11 +93,6 @@ namespace PetCuttieGames.Rhythm
                 AudioManager.Instance?.PlayNote(laneIndex);
                 currentNote.Hit();
                 currentNote = null;
-                Debug.Log($"Lane {laneIndex}: ACERTO!");
-            }
-            else
-            {
-                Debug.Log($"Lane {laneIndex}: nota fora da janela de acerto.");
             }
         }
 
@@ -117,7 +102,6 @@ namespace PetCuttieGames.Rhythm
             if (note != null && note.LaneIndex == laneIndex)
             {
                 currentNote = note;
-                Debug.Log($"Lane {laneIndex}: nota entrou na zona.");
             }
         }
 
