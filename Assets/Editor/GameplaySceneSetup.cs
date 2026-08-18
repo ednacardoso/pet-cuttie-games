@@ -190,35 +190,34 @@ namespace PetCuttieGames.Rhythm.Editor
         private static Sprite EnsureWhiteSprite()
         {
             string directory = "Assets/Resources/Sprites";
-            string path = $"{directory}/WhiteSquare.png";
-
-            if (File.Exists(path))
-            {
-                return AssetDatabase.LoadAssetAtPath<Sprite>(path);
-            }
+            string texturePath = $"{directory}/WhiteSquareTexture.asset";
+            string spritePath = $"{directory}/WhiteSquareSprite.sprite";
 
             Directory.CreateDirectory(directory);
 
-            var texture = new Texture2D(32, 32);
+            var existingSprite = AssetDatabase.LoadAssetAtPath<Sprite>(spritePath);
+            if (existingSprite != null)
+            {
+                return existingSprite;
+            }
+
+            var texture = new Texture2D(32, 32, TextureFormat.RGBA32, false);
             var pixels = new Color[32 * 32];
             for (int i = 0; i < pixels.Length; i++) pixels[i] = Color.white;
             texture.SetPixels(pixels);
             texture.Apply();
+            texture.name = "WhiteSquareTexture";
 
-            byte[] bytes = texture.EncodeToPNG();
-            File.WriteAllBytes(path, bytes);
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            AssetDatabase.CreateAsset(texture, texturePath);
+            AssetDatabase.SaveAssets();
 
-            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
-            if (importer != null)
-            {
-                importer.textureType = TextureImporterType.Sprite;
-                importer.spritePixelsPerUnit = 32f;
-                importer.SaveAndReimport();
-            }
-
+            var sprite = Sprite.Create(texture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32f);
+            sprite.name = "WhiteSquareSprite";
+            AssetDatabase.CreateAsset(sprite, spritePath);
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            return AssetDatabase.LoadAssetAtPath<Sprite>(path);
+
+            return sprite;
         }
 
         private static void SetPrivateField(object target, string fieldName, object value)
