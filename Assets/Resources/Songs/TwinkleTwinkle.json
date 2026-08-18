@@ -1,0 +1,23 @@
+{
+  "title": "Twinkle Twinkle Little Star",
+  "composer": "Traditional",
+  "bpm": 90,
+  "difficulty": "Easy",
+  "notes": [
+    { "lane": 0, "time": 2.0 },
+    { "lane": 0, "time": 2.7 },
+    { "lane": 4, "time": 3.4 },
+    { "lane": 4, "time": 4.1 },
+    { "lane": 4, "time": 4.8 },
+    { "lane": 4, "time": 5.5 },
+    { "lane": 4, "time": 6.2 },
+
+    { "lane": 3, "time": 7.6 },
+    { "lane": 3, "time": 8.3 },
+    { "lane": 2, "time": 9.0 },
+    { "lane": 2, "time": 9.7 },
+    { "lane": 1, "time": 10.4 },
+    { "lane": 1, "time": 11.1 },
+    { "lane": 0, "time": 11.8 }
+  ]
+}

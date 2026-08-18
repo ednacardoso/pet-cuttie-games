@@ -1,0 +1,21 @@
+{
+  "title": "Happy Birthday",
+  "composer": "Traditional",
+  "bpm": 100,
+  "difficulty": "Easy",
+  "notes": [
+    { "lane": 0, "time": 2.0 },
+    { "lane": 0, "time": 2.4 },
+    { "lane": 1, "time": 2.8 },
+    { "lane": 0, "time": 3.2 },
+    { "lane": 3, "time": 3.6 },
+    { "lane": 2, "time": 4.4 },
+
+    { "lane": 0, "time": 5.6 },
+    { "lane": 0, "time": 6.0 },
+    { "lane": 1, "time": 6.4 },
+    { "lane": 0, "time": 6.8 },
+    { "lane": 4, "time": 7.2 },
+    { "lane": 3, "time": 8.0 }
+  ]
+}
