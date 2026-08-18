@@ -102,7 +102,11 @@ namespace PetCuttieGames.Rhythm.Editor
 
             var collider = noteGO.AddComponent<BoxCollider2D>();
             collider.isTrigger = true;
-            collider.size = new Vector2(0.8f, 0.3f);
+            collider.size = new Vector2(0.8f, 0.5f);
+
+            var rb = noteGO.AddComponent<Rigidbody2D>();
+            rb.gravityScale = 0f;
+            rb.isKinematic = true;
 
             noteGO.AddComponent<Note>();
 
