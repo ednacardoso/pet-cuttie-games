@@ -89,7 +89,8 @@ namespace PetCuttieGames.Rhythm.Editor
         {
             var noteGO = new GameObject("Note");
             var sr = noteGO.AddComponent<SpriteRenderer>();
-            sr.sprite = CreateSquareSprite("NoteSprite", new Color(1f, 0.9f, 0.2f));
+            sr.sprite = LoadOrCreateWhiteSprite();
+            sr.color = new Color(1f, 0.9f, 0.2f);
             sr.drawMode = SpriteDrawMode.Simple;
             noteGO.transform.localScale = new Vector3(0.8f, 0.3f, 1f);
 
@@ -120,7 +121,8 @@ namespace PetCuttieGames.Rhythm.Editor
                 laneGO.transform.position = new Vector3(startX + i * spacing, yPos, 0f);
 
                 var sr = laneGO.AddComponent<SpriteRenderer>();
-                sr.sprite = CreateSquareSprite($"LaneSprite_{i}", new Color(0.4f, 0.4f, 0.6f));
+                sr.sprite = LoadOrCreateWhiteSprite();
+                sr.color = new Color(0.4f, 0.4f, 0.6f);
                 sr.drawMode = SpriteDrawMode.Simple;
                 laneGO.transform.localScale = new Vector3(1f, 7f, 1f);
 
@@ -179,15 +181,21 @@ namespace PetCuttieGames.Rhythm.Editor
             return text;
         }
 
-        private static Sprite CreateSquareSprite(string name, Color color)
+        private static Sprite LoadOrCreateWhiteSprite()
         {
             string directory = "Assets/Resources/Sprites";
+            string path = $"{directory}/WhiteSquare.png";
+
+            if (File.Exists(path))
+            {
+                return AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            }
+
             Directory.CreateDirectory(directory);
-            string path = $"{directory}/{name}.png";
 
             var texture = new Texture2D(32, 32);
             var pixels = new Color[32 * 32];
-            for (int i = 0; i < pixels.Length; i++) pixels[i] = color;
+            for (int i = 0; i < pixels.Length; i++) pixels[i] = Color.white;
             texture.SetPixels(pixels);
             texture.Apply();
 
@@ -199,9 +207,11 @@ namespace PetCuttieGames.Rhythm.Editor
             if (importer != null)
             {
                 importer.textureType = TextureImporterType.Sprite;
+                importer.spritePixelsPerUnit = 32f;
                 importer.SaveAndReimport();
             }
 
+            AssetDatabase.Refresh();
             return AssetDatabase.LoadAssetAtPath<Sprite>(path);
         }
 
