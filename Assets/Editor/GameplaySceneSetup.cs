@@ -20,6 +20,10 @@ namespace PetCuttieGames.Rhythm.Editor
         [MenuItem("Tools/Pet Cuttie Games/Setup Gameplay Scene")]
         public static void CreateGameplayScene()
         {
+            // Garante que o sprite branco exista antes de criar objetos
+            Sprite whiteSprite = EnsureWhiteSprite();
+            Debug.Log($"White sprite: {(whiteSprite != null ? whiteSprite.name : "NULL")}");
+
             // Cria a cena nova ou carrega a existente
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -40,13 +44,15 @@ namespace PetCuttieGames.Rhythm.Editor
             light.transform.rotation = Quaternion.Euler(50f, -30f, 0f);
 
             // Prefab da nota (cria, salva e carrega a referencia do disco)
-            GameObject notePrefabInstance = CreateNotePrefab();
+            GameObject notePrefabInstance = CreateNotePrefab(whiteSprite);
             PrefabUtility.SaveAsPrefabAsset(notePrefabInstance, NotePrefabPath);
             Object.DestroyImmediate(notePrefabInstance);
+            AssetDatabase.Refresh();
             GameObject notePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(NotePrefabPath);
+            Debug.Log($"Note prefab: {(notePrefab != null ? notePrefab.name : "NULL")}");
 
             // Lanes
-            Transform[] laneSpawnPoints = CreateLanes();
+            Transform[] laneSpawnPoints = CreateLanes(whiteSprite);
 
             // NoteSpawner
             var noteSpawnerGO = new GameObject("NoteSpawner");
@@ -85,11 +91,11 @@ namespace PetCuttieGames.Rhythm.Editor
             Debug.Log($"Cena de gameplay criada em: {GameplayScenePath}");
         }
 
-        private static GameObject CreateNotePrefab()
+        private static GameObject CreateNotePrefab(Sprite whiteSprite)
         {
             var noteGO = new GameObject("Note");
             var sr = noteGO.AddComponent<SpriteRenderer>();
-            sr.sprite = LoadOrCreateWhiteSprite();
+            sr.sprite = whiteSprite;
             sr.color = new Color(1f, 0.9f, 0.2f);
             sr.drawMode = SpriteDrawMode.Simple;
             noteGO.transform.localScale = new Vector3(0.8f, 0.3f, 1f);
@@ -103,7 +109,7 @@ namespace PetCuttieGames.Rhythm.Editor
             return noteGO;
         }
 
-        private static Transform[] CreateLanes()
+        private static Transform[] CreateLanes(Sprite whiteSprite)
         {
             var lanesParent = new GameObject("Lanes").transform;
             Transform[] spawnPoints = new Transform[5];
@@ -121,7 +127,7 @@ namespace PetCuttieGames.Rhythm.Editor
                 laneGO.transform.position = new Vector3(startX + i * spacing, yPos, 0f);
 
                 var sr = laneGO.AddComponent<SpriteRenderer>();
-                sr.sprite = LoadOrCreateWhiteSprite();
+                sr.sprite = whiteSprite;
                 sr.color = new Color(0.4f, 0.4f, 0.6f);
                 sr.drawMode = SpriteDrawMode.Simple;
                 laneGO.transform.localScale = new Vector3(1f, 7f, 1f);
@@ -181,7 +187,7 @@ namespace PetCuttieGames.Rhythm.Editor
             return text;
         }
 
-        private static Sprite LoadOrCreateWhiteSprite()
+        private static Sprite EnsureWhiteSprite()
         {
             string directory = "Assets/Resources/Sprites";
             string path = $"{directory}/WhiteSquare.png";
