@@ -62,8 +62,8 @@ namespace PetCuttieGames.Rhythm.Editor
             // Usar reflection para setar campos privados [SerializeField]
             SetPrivateField(noteSpawner, "notePrefab", notePrefab);
             SetPrivateField(noteSpawner, "laneSpawnPoints", laneSpawnPoints);
-            SetPrivateField(noteSpawner, "fallSpeed", 5f);
-            SetPrivateField(noteSpawner, "spawnAnticipation", 2f);
+            SetPrivateField(noteSpawner, "fallSpeed", 3f);
+            SetPrivateField(noteSpawner, "spawnAnticipation", 3f);
             SetPrivateField(noteSpawner, "songStartDelay", 2f);
 
             // AudioManager

@@ -53,7 +53,7 @@ namespace PetCuttieGames.Rhythm
                 nextNoteIndex++;
             }
 
-            if (nextNoteIndex >= songNotes.Count && songTimer > songNotes[songNotes.Count - 1].hitTime + 3f)
+            if (nextNoteIndex >= songNotes.Count && songTimer > songNotes[songNotes.Count - 1].hitTime + 5f)
             {
                 EndSong();
             }
