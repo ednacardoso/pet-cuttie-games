@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -180,15 +181,28 @@ namespace PetCuttieGames.Rhythm.Editor
 
         private static Sprite CreateSquareSprite(string name, Color color)
         {
+            string directory = "Assets/Resources/Sprites";
+            Directory.CreateDirectory(directory);
+            string path = $"{directory}/{name}.png";
+
             var texture = new Texture2D(32, 32);
             var pixels = new Color[32 * 32];
             for (int i = 0; i < pixels.Length; i++) pixels[i] = color;
             texture.SetPixels(pixels);
             texture.Apply();
 
-            var sprite = Sprite.Create(texture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32f);
-            sprite.name = name;
-            return sprite;
+            byte[] bytes = texture.EncodeToPNG();
+            File.WriteAllBytes(path, bytes);
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+
+            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (importer != null)
+            {
+                importer.textureType = TextureImporterType.Sprite;
+                importer.SaveAndReimport();
+            }
+
+            return AssetDatabase.LoadAssetAtPath<Sprite>(path);
         }
 
         private static void SetPrivateField(object target, string fieldName, object value)
