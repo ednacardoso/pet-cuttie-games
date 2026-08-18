@@ -1,0 +1,54 @@
+{
+  "title": "Ode to Joy",
+  "composer": "Ludwig van Beethoven",
+  "bpm": 100,
+  "difficulty": "Easy",
+  "lanes": [
+    { "index": 0, "note": "C", "key": "A" },
+    { "index": 1, "note": "D", "key": "S" },
+    { "index": 2, "note": "E", "key": "D" },
+    { "index": 3, "note": "F", "key": "F" },
+    { "index": 4, "note": "G", "key": "G" }
+  ],
+  "notes": [
+    { "lane": 2, "time": 2.0 },
+    { "lane": 2, "time": 2.5 },
+    { "lane": 3, "time": 3.0 },
+    { "lane": 4, "time": 3.5 },
+
+    { "lane": 4, "time": 4.5 },
+    { "lane": 3, "time": 5.0 },
+    { "lane": 2, "time": 5.5 },
+    { "lane": 1, "time": 6.0 },
+
+    { "lane": 0, "time": 7.0 },
+    { "lane": 0, "time": 7.5 },
+    { "lane": 1, "time": 8.0 },
+    { "lane": 2, "time": 8.5 },
+
+    { "lane": 2, "time": 9.5 },
+    { "lane": 1, "time": 10.0 },
+    { "lane": 1, "time": 10.5 },
+    { "lane": 1, "time": 11.0 },
+
+    { "lane": 2, "time": 12.0 },
+    { "lane": 2, "time": 12.5 },
+    { "lane": 3, "time": 13.0 },
+    { "lane": 4, "time": 13.5 },
+
+    { "lane": 4, "time": 14.5 },
+    { "lane": 3, "time": 15.0 },
+    { "lane": 2, "time": 15.5 },
+    { "lane": 1, "time": 16.0 },
+
+    { "lane": 0, "time": 17.0 },
+    { "lane": 0, "time": 17.5 },
+    { "lane": 1, "time": 18.0 },
+    { "lane": 2, "time": 18.5 },
+
+    { "lane": 1, "time": 19.5 },
+    { "lane": 0, "time": 20.0 },
+    { "lane": 0, "time": 20.5 },
+    { "lane": 0, "time": 21.0 }
+  ]
+}
