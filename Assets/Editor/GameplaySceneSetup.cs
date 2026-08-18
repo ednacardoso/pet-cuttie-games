@@ -28,8 +28,8 @@ namespace PetCuttieGames.Rhythm.Editor
             var cam = camera.AddComponent<Camera>();
             cam.backgroundColor = new Color(0.1f, 0.1f, 0.18f);
             cam.orthographic = true;
-            cam.orthographicSize = 5f;
-            cam.transform.position = new Vector3(0f, 0f, -10f);
+            cam.orthographicSize = 6f;
+            cam.transform.position = new Vector3(0f, 1f, -10f);
             camera.AddComponent<AudioListener>();
 
             // Luz (apenas para nao ficar totalmente escuro se usar materiais default)
@@ -88,13 +88,13 @@ namespace PetCuttieGames.Rhythm.Editor
         {
             var noteGO = new GameObject("Note");
             var sr = noteGO.AddComponent<SpriteRenderer>();
-            sr.sprite = CreateSquareSprite("NoteSprite", Color.white);
-            sr.drawMode = SpriteDrawMode.Sliced;
-            sr.size = new Vector2(0.8f, 0.2f);
+            sr.sprite = CreateSquareSprite("NoteSprite", new Color(1f, 0.9f, 0.2f));
+            sr.drawMode = SpriteDrawMode.Simple;
+            noteGO.transform.localScale = new Vector3(0.8f, 0.3f, 1f);
 
             var collider = noteGO.AddComponent<BoxCollider2D>();
             collider.isTrigger = true;
-            collider.size = new Vector2(0.8f, 0.2f);
+            collider.size = new Vector2(0.8f, 0.3f);
 
             noteGO.AddComponent<Note>();
 
@@ -108,7 +108,7 @@ namespace PetCuttieGames.Rhythm.Editor
 
             float startX = -4f;
             float spacing = 2f;
-            float yPos = -3f;
+            float yPos = -3.5f;
 
             KeyCode[] keys = { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F, KeyCode.G };
 
@@ -119,13 +119,13 @@ namespace PetCuttieGames.Rhythm.Editor
                 laneGO.transform.position = new Vector3(startX + i * spacing, yPos, 0f);
 
                 var sr = laneGO.AddComponent<SpriteRenderer>();
-                sr.sprite = CreateSquareSprite($"LaneSprite_{i}", new Color(0.3f, 0.3f, 0.4f));
-                sr.drawMode = SpriteDrawMode.Sliced;
-                sr.size = new Vector2(1f, 0.2f);
+                sr.sprite = CreateSquareSprite($"LaneSprite_{i}", new Color(0.4f, 0.4f, 0.6f));
+                sr.drawMode = SpriteDrawMode.Simple;
+                laneGO.transform.localScale = new Vector3(1f, 7f, 1f);
 
                 var collider = laneGO.AddComponent<BoxCollider2D>();
                 collider.isTrigger = true;
-                collider.size = new Vector2(1f, 0.2f);
+                collider.size = new Vector2(1f, 0.15f);
 
                 var lane = laneGO.AddComponent<Lane>();
                 lane.laneIndex = i;

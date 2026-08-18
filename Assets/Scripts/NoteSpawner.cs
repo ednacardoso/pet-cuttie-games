@@ -67,6 +67,7 @@ namespace PetCuttieGames.Rhythm
             songTimer = -songStartDelay;
             nextNoteIndex = 0;
             isPlaying = true;
+            Debug.Log($"NoteSpawner: musica iniciada com {songNotes.Count} notas.");
         }
 
         private void SpawnNote(SongNote songNote)
