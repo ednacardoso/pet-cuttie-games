@@ -21,12 +21,20 @@ namespace PetCuttieGames.Rhythm
         [Header("Configuracao")]
         [SerializeField] private bool autoStartFromMenu = true;
 
+        private bool hasStarted;
+
         private void Start()
         {
             ApplySessionChoices();
 
             if (autoStartFromMenu && GameSession.Instance != null)
             {
+                StartGame();
+            }
+            else if (startScreen == null)
+            {
+                // Quando nao ha tela inicial configurada, inicia automaticamente
+                // (util para testar a cena Gameplay isoladamente).
                 StartGame();
             }
             else
@@ -90,6 +98,9 @@ namespace PetCuttieGames.Rhythm
         /// </summary>
         public void StartGame()
         {
+            if (hasStarted) return;
+
+            hasStarted = true;
             ShowGameplayScreen();
             scoreManager?.gameObject.SetActive(true);
             noteSpawner?.StartSong();
@@ -120,7 +131,7 @@ namespace PetCuttieGames.Rhythm
         private void Update()
         {
             // Atalho para iniciar no editor/teclado
-            if (Input.GetKeyDown(KeyCode.Space) && startScreen != null && startScreen.activeSelf)
+            if (!hasStarted && Input.GetKeyDown(KeyCode.Space))
             {
                 StartGame();
             }
