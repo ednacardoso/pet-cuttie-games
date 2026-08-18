@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Separate test project (kept locally, not in repo)
 /[Mm]y\ project1/
+
+# TextMesh Pro examples (not needed for the game)
+/[Aa]ssets/[Tt]extMesh\ [Pp]ro/Examples\ &\ [Ee]xtras/

@@ -30,6 +30,7 @@ namespace PetCuttieGames.Rhythm.Editor
             cam.orthographic = true;
             cam.orthographicSize = 5f;
             cam.transform.position = new Vector3(0f, 0f, -10f);
+            camera.AddComponent<AudioListener>();
 
             // Luz (apenas para nao ficar totalmente escuro se usar materiais default)
             var lightGO = new GameObject("Directional Light");
@@ -37,8 +38,11 @@ namespace PetCuttieGames.Rhythm.Editor
             light.type = LightType.Directional;
             light.transform.rotation = Quaternion.Euler(50f, -30f, 0f);
 
-            // Prefab da nota
-            GameObject notePrefab = CreateNotePrefab();
+            // Prefab da nota (cria, salva e carrega a referencia do disco)
+            GameObject notePrefabInstance = CreateNotePrefab();
+            PrefabUtility.SaveAsPrefabAsset(notePrefabInstance, NotePrefabPath);
+            Object.DestroyImmediate(notePrefabInstance);
+            GameObject notePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(NotePrefabPath);
 
             // Lanes
             Transform[] laneSpawnPoints = CreateLanes();
@@ -73,10 +77,7 @@ namespace PetCuttieGames.Rhythm.Editor
             SetPrivateField(gameManager, "audioManager", audioManager);
             SetPrivateField(gameManager, "autoStartFromMenu", true);
 
-            // Salva prefab e cena
-            PrefabUtility.SaveAsPrefabAsset(notePrefab, NotePrefabPath);
-            Object.DestroyImmediate(notePrefab);
-
+            // Salva cena
             EditorSceneManager.SaveScene(scene, GameplayScenePath);
             AssetDatabase.Refresh();
 
